@@ -3,6 +3,7 @@ CRISPR-Cas9 Gene Editing Simulator
 
 A Streamlit application for simulating CRISPR-Cas9 gene editing experiments.
 """
+from models import calculate_on_target_score
 import streamlit as st
 from Bio import SeqIO
 import io
@@ -22,9 +23,7 @@ from typing import Optional, Dict, Any, List, Tuple
 import streamlit as st
 import numpy as np
 import pandas as pd
-from Bio import pairwise2
 from Bio.Seq import Seq
-from Bio.pairwise2 import format_alignment
 
 # Add the project root to the Python path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -295,7 +294,7 @@ if st.session_state.seq_record:
                 
                 st.success("Simulation completed!")
     
-    # Show results if available
+        # Show results if available
     if st.session_state.edited_seq is not None:
         st.subheader("Simulation Results")
         
@@ -354,3 +353,8 @@ st.markdown(
     *This is a simulation tool for educational and research purposes only.*
     """
 )
+
+        
+       
+        
+       

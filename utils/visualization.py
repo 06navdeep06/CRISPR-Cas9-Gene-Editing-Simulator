@@ -22,10 +22,14 @@ def plot_editing_results(seq_record: str, edited_seq: str, targets: List[Dict[st
         for i, t in enumerate(targets):
             # Color on-targets red, off-targets blue
             color = "#ff6b6b" if t['mismatches'] == 0 else "#4dabf7"
-            
+            # Our targets come from Cas9.find_targets() with keys:
+            # 'position' (int), 'sequence' (str), 'pam_sequence' (str), 'strand' ('+'|'-'), 'mismatches' (int)
+            start = t.get('position', 0)
+            end = start + len(t.get('sequence', ''))
+
             features.append(GraphicFeature(
-                start=t['start'],
-                end=t['end'],
+                start=start,
+                end=end,
                 strand=1 if t['strand'] == "+" else -1,
                 color=color,
                 label=f"{'On' if t['mismatches'] == 0 else 'Off'}-target {i+1}"

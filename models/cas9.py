@@ -41,7 +41,10 @@ class Cas9:
             List of start positions of PAM sites
         """
         # Import here to avoid circular imports
-        from CRISPRcas9_simV3.utils.sequence_utils import is_valid_pam
+        try:
+            from CRISPRcas9_simV3.utils.sequence_utils import is_valid_pam
+        except ImportError:  # Fallback when running without package install
+            from utils.sequence_utils import is_valid_pam
         
         seq = seq.upper()
         pam_len = len(self.pam_pattern)
@@ -64,7 +67,10 @@ class Cas9:
             List of target site dictionaries with position, sequence, and strand info
         """
         # Import here to avoid circular imports
-        from CRISPRcas9_simV3.utils.sequence_utils import is_valid_pam, reverse_complement
+        try:
+            from CRISPRcas9_simV3.utils.sequence_utils import is_valid_pam, reverse_complement
+        except ImportError:  # Fallback when running without package install
+            from utils.sequence_utils import is_valid_pam, reverse_complement
         
         if not guide_rna:
             return []
@@ -134,14 +140,14 @@ class Cas9:
         seq = str(seq)
         if edit_type == "Knockout (NHEJ)":
             # Simulate NHEJ by introducing small deletions
-            cut_site = target['start'] + len(target['target_seq']) // 2
+            cut_site = target['position'] + len(target['sequence']) // 2
             del_len = random.randint(1, 3)
             edited = seq[:cut_site] + seq[cut_site+del_len:]
             return edited
         elif edit_type == "Knock-in/Edit (HDR)":
             if donor_template:
                 # Simulate HDR by inserting the donor template at the cut site
-                cut_site = target['start'] + len(target['target_seq']) // 2
+                cut_site = target['position'] + len(target['sequence']) // 2
                 edited = seq[:cut_site] + donor_template + seq[cut_site:]
                 return edited
             else:

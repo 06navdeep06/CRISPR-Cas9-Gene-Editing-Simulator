@@ -93,8 +93,11 @@ def simulate_delivery(organ: str, method: str) -> bool:
     Returns:
         True if delivery was successful, False otherwise
     """
-    # Import here to avoid circular imports
-    from CRISPRcas9_simV3.config import DELIVERY_EFFICIENCY
+    # Import here to avoid circular imports and support local runs
+    try:
+        from CRISPRcas9_simV3.config import DELIVERY_EFFICIENCY
+    except ImportError:  # Fallback when running without package install
+        from config import DELIVERY_EFFICIENCY
     
     if organ not in DELIVERY_EFFICIENCY or method not in DELIVERY_EFFICIENCY[organ]:
         return False
