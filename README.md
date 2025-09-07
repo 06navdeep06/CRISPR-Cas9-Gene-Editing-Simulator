@@ -2,7 +2,7 @@
 
 # CRISPR-Cas9 Gene Editing Simulator
 
-> **Note**: This is a refactored version of the original project by [Nirajan2005](https://github.com/Nirajan2005). The original project can be found at [https://github.com/Nirajan2005/CRISPRcas9_simV3](https://github.com/Nirajan2005/CRISPRcas9_simV3). This version by 06navdeep06 includes code improvements and bug fixes while maintaining the original functionality.
+> **Note**: This is a refactored version of the original project by [Nirajan2005](https://github.com/Nirajan2005). This version by 06navdeep06 includes alot of code improvements and bug fixes while maintaining the original functionality.
 
 A comprehensive simulation tool for CRISPR-Cas9 gene editing experiments, now with a modular and maintainable codebase.
 
